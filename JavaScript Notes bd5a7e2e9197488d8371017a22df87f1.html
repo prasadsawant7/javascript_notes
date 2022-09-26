@@ -1,0 +1,742 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>JavaScript Notes</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="bd5a7e2e-9197-488d-8371-017a22df87f1" class="page sans"><header><img class="page-cover-image" src="https://images.unsplash.com/photo-1592609931095-54a2168ae893?ixlib=rb-1.2.1&amp;q=80&amp;cs=tinysrgb&amp;fm=jpg&amp;crop=entropy" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="JavaScript%20Notes%20bd5a7e2e9197488d8371017a22df87f1/javascript-logo.svg"/></div><h1 class="page-title">JavaScript Notes</h1></header><div class="page-body"><h1 id="1915c19f-4071-4dc3-b94d-b5046e04da7f" class="">How <mark class="highlight-yellow">JavaScript</mark> Works?</h1><p id="cc21655a-5eea-47aa-a5a7-1f6963954fc7" class="">Everything in <mark class="highlight-yellow">JS</mark> happens inside an <span style="border-bottom:0.05em solid"><strong>Execution Context</strong></span>.</p><h2 id="220f9c5c-506d-45cd-858e-f02cc4ed7202" class="">Execution Context</h2><ul id="5e3ddee4-4466-4d18-a44b-dfbbc8bd77a0" class="bulleted-list"><li style="list-style-type:disc">Memory Component<ul id="50d73e74-9659-4062-bde6-807e5b71e785" class="bulleted-list"><li style="list-style-type:circle">It contains variable and functions, etc. in key: value pairs.</li></ul><ul id="76a4b3f6-aa37-41c5-8bbc-37477b358d12" class="bulleted-list"><li style="list-style-type:circle">It is also known as <span style="border-bottom:0.05em solid"><strong>Variable Environment</strong></span>.</li></ul></li></ul><ul id="042d9ddd-ee41-45f8-a036-ff4b518f453e" class="bulleted-list"><li style="list-style-type:disc">Code Component<ul id="59be0c16-74ec-4175-b29a-e9da8f77e540" class="bulleted-list"><li style="list-style-type:circle">It is a place where whole <mark class="highlight-yellow">JS</mark> code is executed.</li></ul><ul id="aae03cb0-2e06-4aa9-ac53-7c84157b434b" class="bulleted-list"><li style="list-style-type:circle">It is also known as <span style="border-bottom:0.05em solid"><strong>Thread of Execution</strong></span>.</li></ul></li></ul><table id="7fc5c6f0-b4d5-42f6-9bc8-f42413ee6b45" class="simple-table"><thead class="simple-table-header"><tr id="9a8178d0-71da-42d6-99ff-2177aad2e749"><th id="\b;@" class="block-color-yellow_background simple-table-header"><strong>Memory</strong></th><th id="XofE" class="block-color-yellow_background simple-table-header"><strong>Code</strong></th></tr></thead><tbody><tr id="4e15a05b-008a-4add-8a94-03d9b4798f61"><td id="\b;@" class="">key: value</td><td id="XofE" class="">// Code</td></tr><tr id="b7a00cc7-0ab3-4d1b-8299-06b55812ae6a"><td id="\b;@" class="">a: 10 (Variables)</td><td id="XofE" class="">// Code</td></tr><tr id="5047f0b6-dc23-4572-9afe-d144d67cb9a7"><td id="\b;@" class="">fn: {…}</td><td id="XofE" class="">// Code</td></tr></tbody></table><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="8a7bac5e-d7a6-46dc-949e-cab8738f84df"><div style="font-size:1.5em"><span class="icon">📌</span></div><div style="width:100%">“<mark class="highlight-yellow">JavaScript</mark> is a synchronous single-threaded language”</div></figure><blockquote id="2855a32d-c083-452e-b3b0-24e13fab25e8" class=""><span style="border-bottom:0.05em solid"><strong>Synchronous Single-Threaded</strong></span> means <mark class="highlight-yellow">JS</mark> can only execute the code in a specific order i.e. <mark class="highlight-yellow">JS</mark> will execute one line of at a time and after execution of that line then only <mark class="highlight-yellow">JS</mark> will go to the next line for execution.</blockquote><p id="5a66513b-e9e4-4069-877e-720c84aa3542" class="">
+</p><h1 id="b90bb6f5-10e1-4778-bcae-a5e2dd106954" class="">How <mark class="highlight-yellow">JavaScript </mark>code is executed?</h1><pre id="90439d59-c4c2-454b-821f-ad67f65c612c" class="code"><code>1. var n = 2
+2. 
+3. function sqaure(num) {
+4. 	   var ans = num * num
+5.		 return ans;
+6. }
+7. 
+8. var sqaure2 = sqaure(n)
+9. var sqaure4 = sqaure(4)</code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="f9d9ab31-467b-4cb7-8c9f-d5b460694fa2"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">When the code starts the execution, <mark class="highlight-yellow">JS</mark> engine creates a <strong>Global Execution Context</strong></div></figure><p id="0844ba33-a7d0-49e9-906c-b0f55c1354c3" class="">
+</p><ol type="1" id="6d9d5826-5796-406c-a1b9-0bba7a7b7f9a" class="numbered-list" start="1"><li>When we will run the above code, the Global Execution Context (GEC) is created.</li></ol><ol type="1" id="a9ec0176-cad4-40af-9fb6-b61eeea9d454" class="numbered-list" start="2"><li>As we studied previously, GEC has two components, such as:<ol type="a" id="3f641eb7-13da-44f4-a66b-1e7ad4f10f23" class="numbered-list" start="1"><li>Memory Component</li></ol><ol type="a" id="07ade063-4853-453b-ae15-eeae2bb0c9a9" class="numbered-list" start="2"><li>Code Component</li></ol></li></ol><ol type="1" id="717426c9-858b-40b6-b54e-3f02a545a076" class="numbered-list" start="3"><li>Global Execution Context is created in two phases:<ol type="a" id="120f57c0-f768-445c-8907-d2370fb4aacc" class="numbered-list" start="1"><li>Memory Creation Phase</li></ol><ol type="a" id="3ac6f639-a2b4-483d-921e-e5e70e5906f7" class="numbered-list" start="2"><li>Code Execution Phase</li></ol></li></ol><blockquote id="ee3f9854-bac5-4357-8163-1853e81f3ab6" class=""><span style="border-bottom:0.05em solid"><strong>Memory Creation</strong></span> phase steps:<ol type="1" id="a53ab37d-48b4-4c55-b4aa-2fcdc9bbd40c" class="numbered-list" start="1"><li>GEC is created</li></ol><ol type="1" id="b8da5e12-83b3-4356-a9ec-7286cda885b8" class="numbered-list" start="2"><li><mark class="highlight-yellow">JS</mark> will allocate the memory to variables and function, this process is done in Memory Creation Phase</li></ol><ol type="1" id="5c80ac6d-a263-434d-813c-c3fde8067f0e" class="numbered-list" start="3"><li>Allocation will start from the 1st line, first it’ll allocate memory to variable named as ‘<strong>n’</strong> in the Memory Component of GEC and as we are in the Memory Creation Phase so, <mark class="highlight-yellow">JS</mark> will assign the value to it as <strong>undefined</strong>. <figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="cdbc4d4d-1f08-4e18-b79b-f02ac1dfebe0"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>undefined </strong>is a special keyword reserved in <mark class="highlight-yellow">JavaScript</mark>.</div></figure></li></ol><ol type="1" id="7b5e529d-75f6-4152-be5c-a1145b13c95f" class="numbered-list" start="4"><li>As we previously seen, Memory Component stores variable and functions in key: value pairs. So ‘<strong>n</strong>’ variable will store the value undefined as:<pre id="e0af0c1b-f32a-4d25-a7b8-39293a82f13d" class="code"><code>// Memory Component                 // Code Component
+
+n: undefined</code></pre></li></ol><ol type="1" id="4f8a5492-471f-4aa4-8cd8-a9619e61ff39" class="numbered-list" start="5"><li>Then on next line there is one function named as ‘<strong>sqaure</strong>’. So, <mark class="highlight-yellow">JS</mark> will also store the function sqaure in Memory Component but in case of functions <mark class="highlight-yellow">JS</mark> will assign the whole function code as value.<pre id="017e8301-9042-4b77-a799-2cff7c876fe5" class="code"><code>// Memory Component                 // Code Component
+
+n: undefined
+sqaure: {...}
+// Whole Function Code</code></pre></li></ol><ol type="1" id="5347d333-6a41-44fb-ab7a-676379dccb1b" class="numbered-list" start="6"><li>After the function, the next two lines there are two variables declared. Similarly to variable ‘<strong>n</strong>’ it will store the variables ‘<strong>sqaure2</strong>’ and ‘<strong>sqaure4</strong>’ in the Memory Component and as in this case both are variables so <mark class="highlight-yellow">JS</mark> will assign them undefined as value.<pre id="e3eee185-6600-4da4-a111-de765c421c8c" class="code"><code>// Memory Component                 // Code Component
+
+n: undefined
+sqaure: {...}
+// Whole Function Code
+sqaure2: undefined
+sqaure4: undefined</code></pre></li></ol></blockquote><p id="844b9fc4-f986-4e40-a0d1-7b8e1fc0c9cd" class="">
+</p><blockquote id="d41bf052-a0f6-492b-b679-0bb9a12621d4" class=""><span style="border-bottom:0.05em solid"><strong>Code Execution</strong></span> phase steps:<ol type="1" id="75f32c64-39a8-4099-9f75-92d2cd21d329" class="numbered-list" start="1"><li>As we seen before, <mark class="highlight-yellow">JS</mark> will start the execution line by line and in Code Execution phase every calculation or function calls is done.</li></ol><ol type="1" id="7feb7681-52fd-41a9-9510-30c307a56eb1" class="numbered-list" start="2"><li>As soon as <mark class="highlight-yellow">JS</mark> encounters the first line of the code it checks the value of the variable and overwrites the value of the variable in GEC.<pre id="9643581f-1334-49d9-95b5-1d3188e51013" class="code"><code>// Memory Component                 // Code Component
+
+n: 2
+sqaure: {...}
+// Whole Function Code
+sqaure2: undefined
+sqaure4: undefined</code></pre></li></ol><ol type="1" id="ea9506ef-5b70-4da1-b9ca-e1766fa48ba4" class="numbered-list" start="3"><li>After completing the above steps, control moves to the next line and encounters that we don’t have anything here to assign any value. That is there no value to assign to the function. So it will move to the next line.</li></ol><ol type="1" id="a4bec906-bbf1-4aba-bf94-6a5b73bfe156" class="numbered-list" start="4"><li>So in line no. 8 <mark class="highlight-yellow">JS</mark> encounters the function call/invocation, whenever function is invoked the brand new <span style="border-bottom:0.05em solid"><strong>Execution Context</strong></span> is created.</li></ol><ol type="1" id="e0da4964-3289-4bee-b4b7-13b0f450a9e7" class="numbered-list" start="5"><li>So in the Code Component of GEC new Execution Context is created for sqaure function call. So again we will again go through the Memory Creation and Code Execution phases.</li></ol><ol type="1" id="a0e3314d-a2bf-4ef5-b060-368ff4e3f185" class="numbered-list" start="6"><li>Now we are in the Execution Context of sqaure function only, so the phase 1 will start i.e. Memory Creation Phase.<blockquote id="e22e695f-993c-4cb6-bb7e-a04ad4594255" class=""><span style="border-bottom:0.05em solid"><strong>Memory Creation</strong></span> phase:<ol type="1" id="7ab1f5d0-7451-4fd7-9899-5ae836cb321c" class="numbered-list" start="1"><li>As we seen previously memory is allocated to the variables and functions. So, here it will allocate the memory to variables used inside the function and to parameters as well. Here there is no another function inside this function, no memory will be allocated to any function.</li></ol><ol type="1" id="22ac9ab3-a8d2-4c6c-b721-30397a21430f" class="numbered-list" start="2"><li>So <mark class="highlight-yellow">JS</mark> will encounter ‘<strong>num’</strong> variable first inside square function and will assign the undefined value to it.<pre id="61e610cc-e8bf-4454-97e7-f210298e2a77" class="code"><code>// Memory Component           // Code Component
+
+num: undefined</code></pre></li></ol><ol type="1" id="e0708998-162d-42ed-b14a-aadbf38df97a" class="numbered-list" start="3"><li>Then <mark class="highlight-yellow">JS</mark> will encounter ‘<strong>ans</strong>’ variable and again it’ll assign the undefined value to it.<pre id="2f03313c-36f9-4689-9dd8-ecfa5cbcd416" class="code"><code>// Memory Component           // Code Component
+
+num: undefined
+ans: undefined</code></pre></li></ol></blockquote><blockquote id="452109b4-4068-48d8-92dd-860f8761e310" class=""><span style="border-bottom:0.05em solid"><strong>Code Execution</strong></span> phase<ol type="1" id="6346a1de-b1a3-4b57-9ed9-3589533a04cc" class="numbered-list" start="1"><li>In this phase we will be executing the body of the function.</li></ol><ol type="1" id="c5bbe70a-64a1-40b9-8010-101f3e80c779" class="numbered-list" start="2"><li>When the function is invoked the variable ‘<strong>n</strong>’ is passed to variable ‘<strong>num</strong>’. In above code ‘<strong>n</strong>’ is the <span style="border-bottom:0.05em solid">parameter</span> and ‘<strong>num</strong>’ is the <span style="border-bottom:0.05em solid">argument</span>. So, now the value of ‘<strong>num’</strong> will be overwritten with value of ‘<strong>n</strong>’ that is 2, because we have passed the ‘<strong>n</strong>’ as argument through the function call.<pre id="afd8348d-1590-4486-a18c-d9d15a5b1d88" class="code"><code>// Memory Component           // Code Component
+
+num: 2
+ans: undefined</code></pre></li></ol><ol type="1" id="b123ef31-801a-4717-bc9d-2b197d2d0ca4" class="numbered-list" start="3"><li>So now the control have moved to the next line i.e. line no. 4. On this line the calculation will be done i.e. <strong>num</strong> * <strong>num</strong> and the result will be stored in <strong>ans</strong>. <strong>num * num </strong> this calculation will be done in Code Component and after that the result will be replaced with value of <strong>ans.</strong><pre id="0b5a5329-0153-4078-8210-37ee5d2f92cc" class="code"><code>// Memory Component           // Code Component
+
+num: 2                           num * num | (2 * 2)
+ans: 4</code></pre></li></ol><ol type="1" id="912b7c35-f0b9-4cf0-bc3f-1d311a5f94f0" class="numbered-list" start="4"><li>Now the control will be on line no. 5. Now <mark class="highlight-yellow">JS</mark> will encounter the keyword <strong>return. </strong>return keyword states that return the control of the program where the function was invoked. As in above code the function was invoked on line no. 8, so it will return the value of ans where function was invoked. That means the Code Execution is done for function and the value of ans will be return and assigned to the variable <strong>sqaure2.</strong><pre id="3402786a-b80a-4513-93e2-436137b4e6f5" class="code"><code>// Memory Component           // Code Component
+
+num: 2                           return ans
+ans: 4</code></pre></li></ol></blockquote></li></ol><ol type="1" id="302da171-4dc8-48a1-8977-437b85c877fd" class="numbered-list" start="7"><li>So now the function Execution Context has executed the function and returned the value of <strong>ans</strong> to the <strong>sqaure2</strong> variable.<pre id="dade774d-304f-4e95-8277-d6b679ebcd91" class="code"><code>// Memory Component                 // Code Component
+
+n: 2
+sqaure: {...}
+// Whole Function Code
+sqaure2: 4
+sqaure4: undefined</code></pre></li></ol><ol type="1" id="49d5d818-e8a7-4c65-8915-c1c135004524" class="numbered-list" start="8"><li>After returning the value to the <strong>sqaure2</strong> variable the new Execution Context created for function will be completely destroyed. So, there won’t be any Execution Context inside Code Component. Meaning as soon as function is executed and returned the value, the Execution Context created for that particular function will be destroyed.</li></ol><ol type="1" id="a5c4ebc5-9318-4821-850c-6603074b8ec4" class="numbered-list" start="9"><li>Now the control will move to the line no. 9. <mark class="highlight-yellow">JS</mark> will again encounter the function call, but this time the argument is directly written in the () round brackets instead of passing any variable. So, this the value 4 will be passed as an argument to the <strong>num</strong> parameter i.e. <strong>num</strong> will store the value as 4.</li></ol><ol type="1" id="c604a71e-c889-48c9-8e7b-4cf76d1e4e95" class="numbered-list" start="10"><li>The most important thing now is that, for the second function call again the brand new <strong>Execution Context</strong> will be created.<pre id="27cc208a-f27c-4b6e-b759-6efa17b128cb" class="code"><code>// Memory Component                 // Code Component</code></pre><p id="720d0cbf-cb73-42bf-9918-c3184cf058c3" class="">So, now control will again go through the 2 phases such as Memory Creation and Code Execution phases for sqaure function execution.</p><blockquote id="1154bbf1-0880-4113-9eb9-90c4bf8bc133" class=""><span style="border-bottom:0.05em solid"><strong>Memory Creation Phase</strong></span><ol type="1" id="95b3d5c8-5a55-497b-93af-6a8d80b8b05f" class="numbered-list" start="1"><li>Firstly, the memory is allocated to the <strong>num </strong>and the value will be assigned to it is <strong>undefined</strong>.</li></ol><ol type="1" id="ddbcf22b-85d2-428e-80ca-061d8cb358e2" class="numbered-list" start="2"><li>Secondly, the memory is allocated to the <strong>ans </strong>and again undefined will be stored in it.<pre id="de1f4fab-8456-4e72-8a3c-df50bda99717" class="code"><code>// Memory Component           // Code Component
+
+num: undefined
+ans: undefined</code></pre></li></ol></blockquote><blockquote id="751173b4-c73d-44d9-8de3-31722f1c000e" class=""><span style="border-bottom:0.05em solid"><strong>Code Execution Phase</strong></span><ol type="1" id="1fd64c55-a1c7-4e28-845c-de583b3169a5" class="numbered-list" start="1"><li>Now <strong>num</strong> will get the value 4 from the invokation of function i.e. from line no. 9. Now undefined will be replaced by 4.<pre id="5a94dd2b-212f-4392-a5fb-69acb21a4661" class="code"><code>// Memory Component           // Code Component
+
+num: 4
+ans: undefined</code></pre></li></ol><ol type="1" id="ac3bc8a7-88b1-42f8-a577-af21f0486890" class="numbered-list" start="2"><li>Now the control is moved to the next line, now the calculation will be done in Code Component. That means <strong>num * num </strong>will be calculated and stored in <strong>ans </strong>variable by replacing undefined.<pre id="3458c645-1d4e-4bde-88de-20efe88949a1" class="code"><code>// Memory Component           // Code Component
+
+num: 4                           num * num | (4 * 4)
+ans: 16</code></pre></li></ol><ol type="1" id="abdaf5df-20cb-4d62-a4f1-571d603059d7" class="numbered-list" start="3"><li>Now the control moves to line no. 5. <mark class="highlight-yellow">JS</mark> will encounter the return statement. So, the control will take back to the line no. 9 and the value of ans will be replaced/overwrite by 16. Meaning the value of <strong>sqaure4 </strong>will get updated by 16.<pre id="7041f646-7933-4a76-8c93-d0f0d1367f9c" class="code"><code>// Memory Component           // Code Component
+
+num: 4                           return ans
+ans: 16</code></pre></li></ol><ol type="1" id="3f8e41e4-6c96-44a4-886c-518494b3cd22" class="numbered-list" start="4"><li>As soon as the value of <strong>ans </strong>is returned to the <strong>sqaure4</strong> the <strong>Execution Context</strong> for second sqaure function call will be destroyed.</li></ol></blockquote></li></ol><ol type="1" id="dca04c8e-dc95-49e2-8b41-877c7799e2e9" class="numbered-list" start="11"><li>Now, the value of <strong>sqaure4 </strong>is replaced by 16.<pre id="ad8c1af5-4f3b-4662-ba87-188e7546b5d8" class="code"><code>// Memory Component                 // Code Component
+
+n: 2
+sqaure: {...}
+// Whole Function Code
+sqaure2: 4
+sqaure4: 16</code></pre></li></ol><ol type="1" id="55e50f72-15bb-4381-9d57-3dad078e1222" class="numbered-list" start="12"><li>Now the line no. 9 is also completely executed, so there is nothing left to execute and program is finished.</li></ol><ol type="1" id="f692844a-18a3-490a-a8bb-0d0b67d1b0f8" class="numbered-list" start="13"><li>Now the <strong>Global Execution Context</strong> is also deleted/destroyed.</li></ol></blockquote><p id="174b732b-0025-4b23-aebe-b67d96197932" class="">
+</p><p id="4109a776-9748-4cdb-b8ca-352115cbe7dc" class="">Here we are done with the code, but for the more information. Assume a case where a function is calling another function inside it. Then there would have been main <strong>Global Execution Context </strong>inside it in the Code Component there would have been another new <strong>Execution Context </strong>for 1st function call but now inner function call will also create new Execution Context inside the Code Component of 1st function’s Execution Context. Likewise if there are n number of functions inside one another, then the Execution Context will go deeper. Like this:</p><pre id="4ac32790-530e-43af-b39c-03fac5643659" class="code"><code>// Memory Component    // Code Component
+                       // Memory Component    // Code Component
+                                              // Memory Component    // Code Component
+                                                                     // Memory Component    // Code Component</code></pre><p id="7e5ceecb-77f4-4994-b245-3f03264bd74e" class="">But these procedure seems to be very complicated to handle for <mark class="highlight-yellow">JS</mark>, but <mark class="highlight-yellow">JS</mark> handles it beautifully. It handles everything from creating the GCE, creating the new Execution Context to deleting every Execution Context.</p><p id="b6476e38-939b-4d8a-a46a-d535c14f6b67" class=""><mark class="highlight-yellow">JS</mark> manages everything using a stack, which is usually said as <span style="border-bottom:0.05em solid"><strong>Call Stack</strong></span><strong>.</strong><div class="indented"><table id="11de7426-4a16-417f-91f1-18667a8d06a4" class="simple-table"><thead class="simple-table-header"><tr id="3581383a-d462-4926-8988-16210861733b"><th id="sG^r" class="simple-table-header-color simple-table-header">Call Stack</th></tr></thead><tbody><tr id="1f426d05-2b30-4130-8f83-f67853629da5"><td id="sG^r" class=""></td></tr><tr id="74c52645-a028-4b70-a54b-085907a02314"><td id="sG^r" class=""></td></tr><tr id="c6d13432-fde8-4987-ad2d-7ad1dc44d74f"><td id="sG^r" class=""></td></tr></tbody></table></div></p><p id="b127193d-86d7-4778-944d-0328f4052126" class=""><span style="border-bottom:0.05em solid"><strong>Call Stack</strong></span> is also known as:<div class="indented"><ol type="1" id="a7f6411d-2e69-42ec-9807-2073639e1189" class="numbered-list" start="1"><li>Execution Context Stack</li></ol><ol type="1" id="0c55e0e7-1cc3-4f03-8a99-126ebadd6b79" class="numbered-list" start="2"><li>Program Stack</li></ol><ol type="1" id="f80cc698-a66b-4a16-af2b-ee94f2f1904b" class="numbered-list" start="3"><li>Control Stack</li></ol><ol type="1" id="feb6b798-4197-4ab2-9dca-f1eac952edad" class="numbered-list" start="4"><li>Runtime Stack</li></ol><ol type="1" id="6cdc8b1e-07f5-4fac-8856-1dc3edffd0e7" class="numbered-list" start="5"><li>Machine Stack</li></ol></div></p><p id="9b49d9a8-463d-4dec-bb3f-074b5791168a" class="">It is similar to Stack which used in DSA. When we run the <mark class="highlight-yellow">JS</mark> code <strong>GCE </strong>is created and pushed in the <strong>Call Stack. </strong>Everytime we have <strong>Global Execution Context </strong>at the bottom of the stack.<div class="indented"><table id="abca1595-b60a-46ae-900a-cf5c3281b886" class="simple-table"><thead class="simple-table-header"><tr id="2d8d89aa-89e3-41e6-b409-28cb512c448a"><th id="sG^r" class="simple-table-header-color simple-table-header">Call Stack</th></tr></thead><tbody><tr id="1709e290-e6af-4014-bc1f-d8761e6dded6"><td id="sG^r" class=""></td></tr><tr id="5c34f125-fc6d-4817-b51e-0db52622f006"><td id="sG^r" class=""></td></tr><tr id="87831a98-018f-49d4-bcb1-566b683ed78c"><td id="sG^r" class="">GEC</td></tr></tbody></table></div></p><p id="e2da93e3-364c-42cf-bb11-ed47998504cd" class="">Whenever any function is invoked the new Execution Context is created for it and this newly created Execution Context is pushed inside the Call Stack.<div class="indented"><table id="27fe2bf3-450e-4485-81c6-241e9999f28d" class="simple-table"><thead class="simple-table-header"><tr id="a8259f57-d32d-4903-9d5f-67de7bfc62fb"><th id="sG^r" class="simple-table-header-color simple-table-header">Call Stack</th></tr></thead><tbody><tr id="5da4f754-6824-4a42-b398-4074f19ea4e4"><td id="sG^r" class=""></td></tr><tr id="5d62b20e-0e6a-41c9-84ec-132b1f6f695a"><td id="sG^r" class="">EC1</td></tr><tr id="c33797cd-3144-4869-8f42-4d8c8a759785"><td id="sG^r" class="">GEC</td></tr></tbody></table></div></p><p id="dca61b90-f099-4577-85b9-280b42a2406b" class="">Once we executed the function and returned the value to where the function is invoked then the function is destroyed from the GEC and poped out from Call Stack as well.<div class="indented"><table id="501c059a-09c8-46ed-b19f-b73cfa6da0c4" class="simple-table"><thead class="simple-table-header"><tr id="550dadbd-ddd7-46ff-9b41-d7008f8a8211"><th id="sG^r" class="simple-table-header-color simple-table-header">Call Stack</th></tr></thead><tbody><tr id="2d0cfede-6e6d-4885-ba63-8d6c97715d50"><td id="sG^r" class=""></td></tr><tr id="143042f0-cd3d-453e-809d-ae82d2a32dc7"><td id="sG^r" class=""></td></tr><tr id="15a3c0b4-91cc-4a29-b37a-bb5718d695b0"><td id="sG^r" class="">GEC</td></tr></tbody></table></div></p><p id="95352bd1-0856-431e-9ea1-3c9cb7c03fb2" class="">Again if there is another or same function in the code is called then again <strong>Execution Context</strong> (EC) will be created and that EC will be pushed inside the <strong>Call Stack.</strong><div class="indented"><table id="72a138b9-575d-4246-a57d-746b2ca9357d" class="simple-table"><thead class="simple-table-header"><tr id="75c29ea7-be81-4cf2-bc68-0df57960e03f"><th id="sG^r" class="simple-table-header-color simple-table-header">Call Stack</th></tr></thead><tbody><tr id="f88b0a12-a3ed-43a7-b925-3bf92c4ee331"><td id="sG^r" class=""></td></tr><tr id="03576a83-689d-4965-8e67-526fba4653bf"><td id="sG^r" class="">EC2</td></tr><tr id="151398c5-5228-43b1-94bc-d2df610f701e"><td id="sG^r" class="">GEC</td></tr></tbody></table></div></p><p id="7871d1d6-4985-4994-91fe-4fb704c3186d" class="">Once the second function call is executed the EC for it will be destroyed from GEC and also it will be popped out from the <strong>Call Stack</strong>.<div class="indented"><table id="d9ca5cc0-993f-45a6-b965-d0bc7ffb4209" class="simple-table"><thead class="simple-table-header"><tr id="2185b689-e5ec-4f2d-bc99-e88781bf0a87"><th id="sG^r" class="simple-table-header-color simple-table-header">Call Stack</th></tr></thead><tbody><tr id="2288a8d8-0584-4f05-92d7-4ae49f5cec1f"><td id="sG^r" class=""></td></tr><tr id="b4470273-0e90-40a2-b368-f6c50c738c79"><td id="sG^r" class=""></td></tr><tr id="8b887abc-f78f-4d77-bec0-a9cba5fae01d"><td id="sG^r" class="">GEC</td></tr></tbody></table></div></p><p id="2b1f5b34-bd9d-49cd-90ca-1750e2862855" class="">Finally the whole code is executed, now the GEC will be destroyed and popped out from <strong>Call Stack</strong>. Now <strong>Call Stack</strong> is empty.<div class="indented"><table id="771bc8ec-06c3-410d-95fb-ea65efd4f69d" class="simple-table"><thead class="simple-table-header"><tr id="aa1b3b9f-c6dc-4d8f-b90c-a2b0d07e2d42"><th id="sG^r" class="simple-table-header-color simple-table-header">Call Stack</th></tr></thead><tbody><tr id="3b14d4ca-90a9-4c88-b568-84bdb5cce5dc"><td id="sG^r" class=""></td></tr><tr id="de9ca91d-986a-4950-8e59-36f469aa21d3"><td id="sG^r" class=""></td></tr><tr id="94f950fc-972a-4d5c-b227-e04d561ff063"><td id="sG^r" class=""></td></tr></tbody></table></div></p><p id="0422286e-1923-464a-9a86-ee596ff5045d" class="">Whenever the Execution Stack is created it is pushed inside the Call Stack and whenever it is deleted or destroyed it is popped out from the Call Stack.</p><p id="12d67564-921a-4b2f-a96b-b68c70aeae7f" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="a467c264-c0ff-4e40-b923-854da9172f29"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">“<strong>Call Stack</strong> maintains the <strong><span style="border-bottom:0.05em solid">order of execution</span></strong> of <strong>Execution Contexts</strong>”</div></figure><p id="7b82f135-3310-4ecb-ac57-55a8a1307bf9" class="">
+</p></div></article></body></html>
